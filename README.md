@@ -10,8 +10,14 @@ Este repositório é o código-fonte do Trabalho Prático 2 da disciplina AEDS -
   - Quick Sort;
   - Heap Sort;
   - Merge Sort;
-  
- ## Compilação
-_TODO_
- ## Execução
-_TODO_
+
+## Gerando arquivos de teste
+  _TODO_
+
+## Compilação
+- `make` - Compila o código
+- `make clean` - Apaga todos os arquivos compilados e executáveis
+
+## Execução
+- `./ordenacao.out [Pasta do dataset]`
+- Exemplo: - `./ordenacao.out dataset` executa os testes para todos os arquivos na pasta `dataset`
