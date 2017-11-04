@@ -13,6 +13,8 @@ Data: 10/11/2017
 #include <sys/time.h>
 #include "modelos/item/item.h"
 
+
+#include "algoritmos/bubblesort/bubblesort.h"
 #include "algoritmos/selectionsort/selectionsort.h"
 #include "algoritmos/insertionsort/insertionsort.h"
 
@@ -24,7 +26,6 @@ Data: 10/11/2017
 int carregaVetor(char *nomeArquivo, TipoVetor vetorDestino){
     FILE *arquivo = fopen(nomeArquivo, "r");
     if(!arquivo){
-        printf("- Não foi possível abrir o arquivo!\n");
         return 0;
     }
     int n, contador=0;
@@ -33,7 +34,6 @@ int carregaVetor(char *nomeArquivo, TipoVetor vetorDestino){
         vetorDestino[contador].Chave = n;
     }
     fclose(arquivo);
-    printf("- %d números carregados.\n",contador);
     return contador;
 }
 
@@ -70,6 +70,8 @@ int main(int argc, char *argv[]){
 
     diretorio = opendir(argv[1]);
 
+    printf("Arquivo\t\tN\tBubbleSort\tSelectionSort\tInsertionSort\n");
+
     // Percorre todos os arquivos do diretório passado como parâmetro
     while((listarDiretorio = readdir(diretorio)) != NULL){
         char *extensaoTxt = strstr(listarDiretorio->d_name, ".txt");
@@ -80,27 +82,34 @@ int main(int argc, char *argv[]){
             // Formata o local do arquivos
             sprintf(localArquivo, "%s/%s", argv[1],listarDiretorio->d_name);
 
-            printf("Carregando '%s'\n",listarDiretorio->d_name);
-
             TipoVetor vetor = malloc(sizeof(TipoItem)*(MAXTAM+1)); // Aloca o vetor com tamanho MAXTAM+1
             int tamanhoVetor = carregaVetor(localArquivo, vetor);
 
             TipoVetor vetorCopia = malloc(sizeof(TipoItem)*(tamanhoVetor+1));
             double tempoInicio, tempoFim;
 
+            printf("%s\t%d\t",listarDiretorio->d_name, tamanhoVetor);
+
+            // Bubble Sort
+            copiaVetor(vetor, vetorCopia, tamanhoVetor);
+            tempoInicio = tempoAtual();
+            Bubblesort(vetorCopia, tamanhoVetor);
+            tempoFim = tempoAtual()-tempoInicio;
+            printf("%-5.4f ms\t",tempoFim);
+
             // Selection Sort
             copiaVetor(vetor, vetorCopia, tamanhoVetor);
             tempoInicio = tempoAtual();
             Selecao(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
-            printf("- Tempo Selecion Sort: %f ms\n",tempoFim);
+            printf("%-5.4f ms\t",tempoFim);
 
             // Insertion Sort
             copiaVetor(vetor, vetorCopia, tamanhoVetor);
             tempoInicio = tempoAtual();
             Insercao(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
-            printf("- Tempo Insertion Sort: %f ms\n",tempoFim);
+            printf("%-5.4f ms\n",tempoFim);
         }
     }
 
