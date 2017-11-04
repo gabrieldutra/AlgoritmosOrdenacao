@@ -1,7 +1,7 @@
 CC=gcc
 OPCOES_COMPILADOR=-lm
-TODOS_ARQUIVOS_PONTOH = modelos/item/item.h
-TODOS_ARQUIVOS_OBJ = main.o
+TODOS_ARQUIVOS_PONTOH = modelos/item/item.h algoritmos/selectionsort/selectionsort.h algoritmos/insertionsort/insertionsort.h
+TODOS_ARQUIVOS_OBJ = main.o algoritmos/selectionsort/selectionsort.o algoritmos/insertionsort/insertionsort.o
 
 %.o: ../%.c $(TODOS_ARQUIVOS_PONTOH)
 	$(CC) -o $@ -c $< $(OPCOES_COMPILADOR)
