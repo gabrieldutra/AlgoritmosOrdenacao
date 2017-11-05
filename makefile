@@ -8,6 +8,7 @@ TODOS_ARQUIVOS_OBJ = main.o algoritmos/selectionsort/selectionsort.o algoritmos/
 
 all: $(TODOS_ARQUIVOS_OBJ)
 	gcc -o ordenacao.out $^ $(OPCOES_COMPILADOR)
+	gcc -o gerador.out gerador.c
 
 clean:
 	rm *.o algoritmos/*/*.o *.out

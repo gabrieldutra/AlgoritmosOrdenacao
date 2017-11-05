@@ -11,12 +11,22 @@ Este repositório é o código-fonte do Trabalho Prático 2 da disciplina AEDS -
   - Heap Sort;
   - Merge Sort;
 
-## Gerando arquivos de teste
-  _TODO_
-
 ## Compilação
 - `make` - Compila o código
 - `make clean` - Apaga todos os arquivos compilados e executáveis
+
+## Gerando arquivos de teste
+  - `./gerador.out [Pasta destino] [N] [Tipo de dados]`
+  
+  Tipos de dados: 
+  1 - Ordenados; 
+  2 - Inversamente ordenados; 
+  3 - Quase ordenados; 
+  4 - Aleatórios.
+
+  Exemplo: `./gerador.out dataset 100 4` gera um arquivo de teste com 100 números aleatórios na pasta `dataset`
+
+  Obs.: O gerador de teste gera um vetor de tamanho N ordenado (1 até N) e, de acordo com o tipo de dado escolhido, imprime as N linhas do vetor no arquivo destino.
 
 ## Execução
 - `./ordenacao.out [Pasta do dataset]`
