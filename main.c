@@ -61,7 +61,7 @@ double tempoAtual(){
 
 int main(int argc, char *argv[]){
     DIR *diretorio;
-    struct dirent *listarDiretorio;
+    struct dirent **listarDiretorio;
 
     if(argc < 2){
         printf("Ops, você não passou todos os parâmetros!\nUso: %s [Pasta do dataset]\n", argv[0]);
@@ -70,17 +70,18 @@ int main(int argc, char *argv[]){
 
     diretorio = opendir(argv[1]);
 
-    printf("Arquivo\t\tN\tBubbleSort\tSelectionSort\tInsertionSort\n");
-
+    printf("Arquivo\tN\tBubbleSort(ms)\tSelectionSort(ms)\tInsertionSort(ms)\n");
+    int numeroDiretorios = scandir(argv[1], &listarDiretorio, 0, alphasort);
+    int count=0;
     // Percorre todos os arquivos do diretório passado como parâmetro
-    while((listarDiretorio = readdir(diretorio)) != NULL){
-        char *extensaoTxt = strstr(listarDiretorio->d_name, ".txt");
+    while(count < numeroDiretorios){
+        char *extensaoTxt = strstr(listarDiretorio[count]->d_name, ".txt");
         // Verifica se contém ".txt" como extensão
         if(extensaoTxt != NULL && strlen(extensaoTxt) == 4){
             char localArquivo[100];
 
             // Formata o local do arquivos
-            sprintf(localArquivo, "%s/%s", argv[1],listarDiretorio->d_name);
+            sprintf(localArquivo, "%s/%s", argv[1],listarDiretorio[count]->d_name);
 
             TipoVetor vetor = malloc(sizeof(TipoItem)*(MAXTAM+1)); // Aloca o vetor com tamanho MAXTAM+1
             int tamanhoVetor = carregaVetor(localArquivo, vetor);
@@ -88,30 +89,34 @@ int main(int argc, char *argv[]){
             TipoVetor vetorCopia = malloc(sizeof(TipoItem)*(tamanhoVetor+1));
             double tempoInicio, tempoFim;
 
-            printf("%s\t%d\t",listarDiretorio->d_name, tamanhoVetor);
+            printf("%s\t%d\t",listarDiretorio[count]->d_name, tamanhoVetor);
 
             // Bubble Sort
             copiaVetor(vetor, vetorCopia, tamanhoVetor);
             tempoInicio = tempoAtual();
             Bubblesort(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
-            printf("%-5.4f ms\t",tempoFim);
+            printf("%-5.2f\t",tempoFim);
 
             // Selection Sort
             copiaVetor(vetor, vetorCopia, tamanhoVetor);
             tempoInicio = tempoAtual();
             Selecao(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
-            printf("%-5.4f ms\t",tempoFim);
+            printf("%-5.2f\t",tempoFim);
 
             // Insertion Sort
             copiaVetor(vetor, vetorCopia, tamanhoVetor);
             tempoInicio = tempoAtual();
             Insercao(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
-            printf("%-5.4f ms\n",tempoFim);
+            printf("%-5.2f\n",tempoFim);
         }
+        count++;
     }
+    int i;
+    for(i=0; i < numeroDiretorios; i++) free(listarDiretorio[i]);
+    free(listarDiretorio);
 
     closedir(diretorio);
     return 0;
