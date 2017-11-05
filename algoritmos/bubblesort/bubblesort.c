@@ -20,7 +20,7 @@ void Bubblesort(TipoVetor A, TipoIndice n)
     int i, j;
     int aux;
     for(j=1; j<=n-1; j++){
-        for(i=1; i<=n-1; i++){
+        for(i=1; i<=n-j; i++){
             if(A[i].Chave > A[i+1].Chave){
                 aux = A[i].Chave;
                 A[i].Chave = A[i+1].Chave;
