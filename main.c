@@ -18,6 +18,7 @@ Data: 10/11/2017
 #include "algoritmos/selectionsort/selectionsort.h"
 #include "algoritmos/insertionsort/insertionsort.h"
 #include "algoritmos/quicksort/quicksort.h"
+#include "algoritmos/heapsort/heapsort.h"
 #include "algoritmos/mergesort/mergesort.h"
 
 /** Carrega Vetor - carrega um vetor de um arquivo para a memória
@@ -86,7 +87,7 @@ int main(int argc, char *argv[]){
 
     diretorio = opendir(argv[1]);
 
-    printf("Arquivo\tN\tBubbleSort(ms)\tSelectionSort(ms)\tInsertionSort(ms)\tQuickSort(ms)\tMergeSort(ms)\n");
+    printf("Arquivo\tN\tBubbleSort(ms)\tSelectionSort(ms)\tInsertionSort(ms)\tQuickSort(ms)\tHeapSort(ms)\tMergeSort(ms)\n");
     int numeroDiretorios = scandir(argv[1], &listarDiretorio, 0, alphasort);
     int count=0;
     // Percorre todos os arquivos do diretório passado como parâmetro
@@ -135,6 +136,14 @@ int main(int argc, char *argv[]){
             copiaVetor(vetor, vetorCopia, tamanhoVetor);
             tempoInicio = tempoAtual();
             QuickSort(vetorCopia, tamanhoVetor);
+            tempoFim = tempoAtual()-tempoInicio;
+            verificaOrdenacao(vetorCopia, tamanhoVetor); // Confere se não ocorreu erros na ordenação (Teste dos algoritmos)
+            printf("%-5.2f\t",tempoFim);
+
+            // Heap Sort
+            copiaVetor(vetor, vetorCopia, tamanhoVetor);
+            tempoInicio = tempoAtual();
+            Heapsort(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
             verificaOrdenacao(vetorCopia, tamanhoVetor); // Confere se não ocorreu erros na ordenação (Teste dos algoritmos)
             printf("%-5.2f\t",tempoFim);
