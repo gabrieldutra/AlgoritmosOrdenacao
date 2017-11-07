@@ -50,6 +50,20 @@ void copiaVetor(TipoVetor origem, TipoVetor destino, int tamanho){
     }
 }
 
+/** Verifica ordenação - verifica se um vetor está ordenado
+* @param vetor - vetor a ser verificado
+* @param tamanho - Tamanho do vetor
+**/
+void verificaOrdenacao(TipoVetor vetor, int tamanho){
+    int i;
+    for(i=1; i<tamanho; i++){
+        if(vetor[i].Chave > vetor[i+1].Chave){
+            printf("O vetor não foi ordenado!\n");
+            break;
+        }
+    }
+}
+
 /** Tempo Atual
 * @return double - Tempo atual em milisegundos
 **/
@@ -97,6 +111,7 @@ int main(int argc, char *argv[]){
             tempoInicio = tempoAtual();
             Bubblesort(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
+            verificaOrdenacao(vetorCopia, tamanhoVetor); // Confere se não ocorreu erros na ordenação (Teste dos algoritmos)
             printf("%-5.2f\t",tempoFim);
 
             // Selection Sort
@@ -104,6 +119,7 @@ int main(int argc, char *argv[]){
             tempoInicio = tempoAtual();
             Selecao(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
+            verificaOrdenacao(vetorCopia, tamanhoVetor); // Confere se não ocorreu erros na ordenação (Teste dos algoritmos)
             printf("%-5.2f\t",tempoFim);
 
             // Insertion Sort
@@ -111,6 +127,7 @@ int main(int argc, char *argv[]){
             tempoInicio = tempoAtual();
             Insercao(vetorCopia, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
+            verificaOrdenacao(vetorCopia, tamanhoVetor); // Confere se não ocorreu erros na ordenação (Teste dos algoritmos)
             printf("%-5.2f\t",tempoFim);
 
             // Merge Sort
@@ -118,6 +135,7 @@ int main(int argc, char *argv[]){
             tempoInicio = tempoAtual();
             Mergesort(vetorCopia, 1, tamanhoVetor);
             tempoFim = tempoAtual()-tempoInicio;
+            verificaOrdenacao(vetorCopia, tamanhoVetor); // Confere se não ocorreu erros na ordenação (Teste dos algoritmos)
             printf("%-5.2f\n",tempoFim);
         }
         count++;

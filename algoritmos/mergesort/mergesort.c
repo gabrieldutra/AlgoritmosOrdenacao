@@ -35,6 +35,8 @@ void Merge(TipoVetor A, int i, int m, int j){
     while (k<=m) A[x++].Chave = B[k++].Chave;
 
     while (l<=j) A[x++].Chave = B[l++].Chave;
+    
+    free(B);
 
 }
 
